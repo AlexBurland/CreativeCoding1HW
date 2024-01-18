@@ -1,1 +1,2 @@
-# Repository for my Creative Coding class.
+#CreativeCoding1HW
+Repository for my Creative Coding class
