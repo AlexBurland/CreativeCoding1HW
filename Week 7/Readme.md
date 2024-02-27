@@ -1,2 +1,2 @@
 ## Week 6 homework
-This is my homework for week 6 where I am working in html.
+This is my homework for week 7 where I am working in html.
