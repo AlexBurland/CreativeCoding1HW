@@ -1,0 +1,16 @@
+span{
+    background-color:red;
+}
+.purple{
+   color:purple
+}
+P{font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+#Large{
+    font-size: 48px;
+}
+#Title{
+ padding: 40px;
+ font-size: 72px;
+  text-align: center;
+}
