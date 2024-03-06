@@ -1,45 +1,120 @@
+<!DOCTYPE html>
 <html>
-    <title>Hero Recrtuier p3</title>
+<head>
+    <title>Hero Recruiter p3</title>
     <style>
-        body{
-        background-color:rgb(255, 228, 196); font-size:200%
+        body {
+            background-color: rgb(255, 228, 196);
+            font-size: 200%;
+        }
+        input:invalid, input[data-unsaved] {
+            border: 2px solid red;
         }
     </style>
-    <head>
-        <!--This is a suprise tool that will help us later-->
-        <link rel="stylesheet" type="text/css" href="Mainstyle.css">
-        
-        <script>
-            
-            function getData()
-            {
-                var first = document.getElementById("first").value;
-                var last = docutment.getElementById("last").value;
-                var email = docutment.getElementById("email").value;
-                var planet = docutment.getElementById("planet").value;
-                var weakness = docutment.getElementById("weakness").value;
-                window.alert("doxed: " + first + last);
+    <script>
+        function getData(event) {
+            event.preventDefault();
+
+            var first = document.getElementById("first");
+            var last = document.getElementById("last");
+            var email = document.getElementById("email");
+            var planet = document.getElementById("planet");
+            var weakness = document.getElementById("weakness");
+
+            saveDataState();
+
+            var EmptyField = false;
+
+            if (first.value === "") {
+                first.setAttribute("data-unsaved", "true");
+                EmptyField = true;
+            } else {
+                first.removeAttribute("data-unsaved");
             }
-            console.log(getData)
-        </script>
-        
-    </head>
-    <body class="purple">
-       <p id="Title">Please give to me all of your information. I can be trusted</p>
-    
-        <img src="heroman.png"/>
-        <br>
-        <form>
-            First Name: <input type="text" value = " " id="first"> <br>
-            Last Name:  <input type="text" value = " " id="last"> <br>
-            Email:      <input type="text" value = " " id="email"> <br>
-            Home Planet: <input type="text" value = " " id="planet"><br>
-            Weakness (I won't tell anyone): <input type="text" value = " " id="weakness"><br>
-            <button id="btnSubmit" class="btn btn-primary" onClick="getData();">Finished</button>
-        </form>
-        <Br>
-            <a href="index.html">Home</a>
-        <a href="page2.html">Page 2</a>
-        <a href="page4.html">Experimental</a>
-    </body>
+
+            if (last.value === "") {
+                last.setAttribute("data-unsaved", "true");
+                EmptyField = true;
+            } else {
+                last.removeAttribute("data-unsaved");
+            }
+
+            if (email.value === "") {
+                email.setAttribute("data-unsaved", "true");
+                EmptyField = true;
+            } else {
+                email.removeAttribute("data-unsaved");
+            }
+
+            if (planet.value === "") {
+                planet.setAttribute("data-unsaved", "true");
+                EmptyField = true;
+            } else {
+                planet.removeAttribute("data-unsaved");
+            }
+
+            if (weakness.value === "") {
+                weakness.setAttribute("data-unsaved", "true");
+                EmptyField = true;
+            } else {
+                weakness.removeAttribute("data-unsaved");
+            }
+
+            if (EmptyField) {
+                window.alert("Please fill in all information.");
+            } else {
+                window.alert("We will contact you: " + first.value + " " + last.value + " from " + planet.value);
+            }
+        }
+
+        function saveDataState() {
+            var first = document.getElementById("first").value;
+            var last = document.getElementById("last").value;
+            var email = document.getElementById("email").value;
+            var planet = document.getElementById("planet").value;
+            var weakness = document.getElementById("weakness").value;
+
+            localStorage.setItem("first", first);
+            localStorage.setItem("last", last);
+            localStorage.setItem("email", email);
+            localStorage.setItem("planet", planet);
+            localStorage.setItem("weakness", weakness);
+        }
+
+        function loadDataState() {
+            var first = localStorage.getItem("first");
+            var last = localStorage.getItem("last");
+            var email = localStorage.getItem("email");
+            var planet = localStorage.getItem("planet");
+            var weakness = localStorage.getItem("weakness");
+
+            document.getElementById("first").value = first;
+            document.getElementById("last").value = last;
+            document.getElementById("email").value = email;
+            document.getElementById("planet").value = planet;
+            document.getElementById("weakness").value = weakness;
+        }
+
+        window.onload = function() {
+            loadDataState();
+        };
+    </script>
+</head>
+<body class="purple">
+    <p id="Title">Please give to me all of your information. I can be trusted</p>
+    <img src="heroman.png" />
+    <br>
+    <form>
+        First Name: <input type="text" id="first"> <br>
+        Last Name: <input type="text" id="last"> <br>
+        Email: <input type="text" id="email"> <br>
+        Home Planet: <input type="text" id="planet"><br>
+        Weakness (I won't tell anyone): <input type="text" id="weakness"><br>
+        <button id="btnSubmit" class="btn btn-primary" onclick="getData(event);">Finished</button>
+    </form>
+    <br>
+    <a href="index.html">Home</a>
+    <a href="page2.html">Page 2</a>
+    <a href="page4.html">Experimental</a>
+</body>
 </html>
