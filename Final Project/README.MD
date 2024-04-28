@@ -8,3 +8,7 @@ On the final week I will write the code for the puzzles (such as interacting wit
 Day 1: Learned basic functionality of Tiled Software. Created overworld map for project with collision map. Sources tile set that is allowed for personal use. Created basic layout of html page that loads map image at correct scale and position. Found free for personal use Sprite images. Need to edit the image of the sprite animation cycles to different files for each cardinal direction.
 
 Day 2: Correctly sized character sprite images. P Added code to better reference adding additional images. Cropped character sprite images to only show one "frame" at a time. Placed player character in starting position on the map, and correctly scaled player sprite. Added "character movement" (by moving the background image) using WASD. Cleaned up character movement to be more accurate in reading what the last key pressed was. Cleaned up some of the original code to be more concise and easier to read/use.
+
+Day 3: Started to implement collision with a created Array. Had many issues and ended up reverting ~3 hours of coding to a previous state.
+
+Day 4: Attempting to solve an array issue with collision detection. Might not be able to create an array to handle all collisions, and will have to use a more messy method of adding each moveable object to the movement funtion one by one.

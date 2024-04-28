@@ -1,9 +1,16 @@
 let map;
 let playerImage;
 let BACKGROUND;
+let testBoundary;
+let player;
+ //player image crop
+ let cropX = 66;
+ let cropY = 0;
+ let cropWidth = 55;
+ let cropHeight = 68;
 const offset = {
-  x:-2500,
-  y:-2200
+  x: -2500,
+  y: -2200
 }
 const keys = {
     w: {
@@ -61,65 +68,137 @@ collisionsMap.forEach((row, i) => {
  })
 })
 
-console.log(boundaries);
 
 function preload() {
-  map = loadImage('MonsterBayMap.png');
-  playerImage = loadImage('PlayerDown.png');
+  console.log("Loading images...");
+  map = loadImage('MonsterBayMap.png', () => console.log("Map image loaded"));
+  playerImage = loadImage('PlayerDown.png', () => console.log("Player image loaded"));
 }
-
-
-
-
-
 
 class Sprite {
-    constructor(position, image) {
-        this.position = position;
-        this.image = image;
-    }
+  constructor({position, velocity, image, frames = {max: 1 } }) {
+    this.position = position;
+    this.image = image;
+    this.frames = frames;
 
-    draw() {
-       image(this.image, this.position.x, this.position.y);
-    }
-
+    this.image.onload = () => {
+      this.width = this.image.width / this.frames.max;
+      this.height = this.image.height;
+      console.log(this.width);
+      console.log(this.height);
+    }  
 }
 
+draw() {
+    image(
+    this.image,
+    this.position.x,
+    this.position.y,
+    this.image.width / this.frames.max,
+    this.image.height,
+    cropX,
+    cropY,
+    cropWidth,
+    cropHeight
+    );
+    
+}
+}
+
+
+class Overwolrd {
+    constructor({position, image, frames = {max: 1 } }) {
+        this.position = position;
+        this.image = image;
+        this.frames = frames;
+
+        //Last spot this doesn't work at all. Is also duplicated in
+        //Sprite class that I seperated player and map for.
+        //Consider finding new video tutorial.
+        this.image.onload = () => {
+          this.width = this.image.width / this.frames.max;
+          this.height = this.image.height;
+          console.log(this.width);
+          console.log(this.height);
+    }
+  }
+    draw() {
+      image(this.image, this.position.x, this.position.y);
+    }
+  
+}
 
 function setup() {
   createCanvas(1280, 720);
-  // Last working spot 2:35 in vid something up with this don't forget
-  //image in video = map for me
-  BACKGROUND = new Sprite(createVector(offset.x, offset.y), map);
+ 
+  BACKGROUND = new Overwolrd ({
+    position: {
+     x: offset.x,
+     y: offset.y
+    },
+     image: map
+  });
+
+  player = new Sprite ({
+    position: {
+     x: width / 2 - 192 / 3 / 2,
+     y: height / 2 - 68 / 2
+ },
+ image: playerImage,
+ frames: {
+   max : 3
+   }
+ });
+
+  testBoundary = new Boundary({
+    position: {
+      x: 400,
+      y: 200
+    }
+  });
+
+   movables = [BACKGROUND, testBoundary];
 }
 
-const testBoundary = new Boundary({
-  position: {
-    x: -2400,
-    y: -2200
-  }
-})
+
+
+
 function draw() {
+
+  
 // Draw the background
    BACKGROUND.draw();
 
-   boundaries.forEach(boundary => {
-   boundary.draw();
-   })
-    testBoundary.draw()
- //player image crop
- let cropX = 65;
- let cropY = 0;
- let cropWidth = 55;
- let cropHeight = 68;
+   // Collisions
+  // boundaries.forEach(boundary => {
+   //boundary.draw();
+   //})
+    testBoundary.draw();
 
 // Draw the player
-  image(playerImage, width / 2 -playerImage.width / 2, height / 2 - playerImage.height / 2, cropWidth, cropHeight, cropX, cropY, cropWidth, cropHeight);
+ player.draw();
 
-  if (keys.w.pressed && lastKey === 'w') BACKGROUND.position.y += 5
-  else if (keys.a.pressed && lastKey === 'a') BACKGROUND.position.x += 5
-  else if (keys.s.pressed && lastKey === 's') BACKGROUND.position.y -= 5
-  else if (keys.d.pressed && lastKey === 'd') BACKGROUND.position.x -= 5
+ if (player.position.x + player.width >= testBoundary.position.x) {
+  console.log('colldiing');
+ }
+
+
+  if (keys.w.pressed && lastKey === 'w') {
+    movables.forEach((movable) => {
+      movable.position.y += 5;
+    })
+   
+  } else if (keys.a.pressed && lastKey === 'a') {
+    movables.forEach((movable) => {
+    movable.position.x += 5;
+  })
+} else if (keys.s.pressed && lastKey === 's') {movables.forEach((movable) => {
+    movable.position.y -= 5;
+  })
+} else if (keys.d.pressed && lastKey === 'd') {movables.forEach((movable) => {
+    movable.position.x += -5;
+  })
+ }
 }
 
 //movement
