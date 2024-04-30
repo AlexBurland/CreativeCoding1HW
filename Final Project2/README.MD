@@ -12,3 +12,9 @@ Day 2: Correctly sized character sprite images. P Added code to better reference
 Day 3: Started to implement collision with a created Array. Had many issues and ended up reverting ~3 hours of coding to a previous state.
 
 Day 4: Attempting to solve an array issue with collision detection. Might not be able to create an array to handle all collisions, and will have to use a more messy method of adding each moveable object to the movement funtion one by one.
+Have done most of the foundational work such as making a controllable player character, jump function, collectable items, moving enemies, basic obstacles.
+Need to refine jump to not be spammable.
+Need to add win/loss screen.
+Need to add scrolling function to continue level until an end point.
+(filled with obstacles, enemies, collectables)
+Considering frame animation, will need to find new sprites if so.
